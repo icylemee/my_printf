@@ -6,7 +6,7 @@
 /*   By: mlemee <mlemee@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 15:24:59 by mlemee            #+#    #+#             */
-/*   Updated: 2025/05/15 15:26:37 by mlemee           ###   ########.fr       */
+/*   Updated: 2025/05/15 16:20:44 by mlemee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ int	ft_putnbr_unsigned(unsigned int num)
 		div *= 10;
 	while (div >= 1)
 	{
-		ft_putchar_fd((num / div) + '0', 1);
+		count += ft_putchar_fd((num / div) + '0', 1);
 		num %= div;
 		div /= 10;
-		count ++;
 	}
 	return (count);
 }
