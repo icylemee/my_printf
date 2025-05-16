@@ -16,5 +16,7 @@ int	main(int argc, char *argv[])
 		printf("%X\n", test(atoi(argv[1])));
 		printf("%d\n", test(atoi(argv[1])));
 		printf("%i\n", test(atoi(argv[1])));
+		printf("Salut j'ai %fgtt\n");
+		printf("Salut j'ai 100%");
 	}
 }

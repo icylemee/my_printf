@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_putstr_fd(char *s, int fd)
+int	ft_putstr_fd(char *s)
 {
 	int	i;
 
@@ -20,8 +20,8 @@ int	ft_putstr_fd(char *s, int fd)
 	if (!s || s[i] == '\0')
 		return (0);
 	while (s[i])
-		write(fd, &s[i++], 1);
-	return (i - 1);
+		write(1, &s[i++], 1);
+	return (i);
 }
 
 /*int main(int argc, char *argv[])

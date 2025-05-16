@@ -11,7 +11,29 @@
 /* ************************************************************************** */
 
 #include <stdarg.h>
+#include <stdio.h>
 #include "libft.h"
+
+static	void	ft_checkfill(char c, va_list *args, int *total)
+{
+	if (c == 'd' || c == 'i')
+		*total += ft_putnbr_fd(va_arg(*args, int));
+	else if (c == '%')
+		*total += ft_putchar_fd('%');
+	else if (c == 's')
+		*total += ft_putstr_fd(va_arg(*args, char *));
+	else if (c == 'c')
+		*total += ft_putchar_fd((char)va_arg(*args, int));
+	else if (c == 'u')
+		*total += ft_putnbr_unsigned(va_arg(*args, unsigned int));
+	else if (c == 'x' || c == 'X')
+	{
+		if (c == 'x')
+			*total += ft_putstr_fd(ft_conv_hexa(va_arg(*args, unsigned int), "0123456789abcdef"));
+		else if (c == 'X')
+			*total += ft_putstr_fd(ft_majuscules(ft_conv_hexa(va_arg(*args, unsigned int), "0123456789abcdef")));
+	}
+}
 
 int	ft_printf(const char *format, ...)
 {
@@ -27,34 +49,23 @@ int	ft_printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			if (format[i] == 'd' || format[i] == 'i')
-				total += ft_putnbr_fd(va_arg(args, int), 1);
-			else if (format[i] == '%')
-				total += ft_putchar_fd('%', 1);
-			else if (format[i] == 's')
-				total += ft_putstr_fd(va_arg(args, char *), 1);
-			else if (format[i] == 'c')
-				total += ft_putchar_fd((char)va_arg(args, int), 1);
-			else if (format[i] == 'u')
-				total += ft_putnbr_unsigned(va_arg(args, unsigned int));
-			else if (format[i] == 'x' || format[i] == 'X')
-			{
-				if (format[i] == 'x')
-					total += ft_putstr_fd(ft_conv_hexa(va_arg(args, unsigned int), "0123456789abcdef"), 1);
-				else if (format[i] == 'X')
-					total += ft_putstr_fd(ft_majuscules(ft_conv_hexa(va_arg(args, unsigned int), "0123456789abcdef")), 1);
-			}
+			if (format[i])
+				ft_checkfill(format[i], &args, &total);
 		}
 		else if (format[i] != '%')
 			total += ft_putchar_fd(format[i], 1);
 		i++;
 	}
+	va_end(args);
 	return (total);
 }
 
 int main(void)
 {
-	ft_printf("\nLONGUEUR : %d\n",ft_printf("Salut, j'ai %d ans, mon initiale est %c, j'ai %u euros, je suis %s%s%%, je test hexa : %x, et en maj %X", 18, 'M', 4294967295, "Matthieu", "LEMEE", 123354, 123354));
+	int len = ft_printf("Salut, j'ai %d ans, mon initiale est %c, j'ai %u euros, je suis %s%s%%, je test hexa : %x, et en maj %X", 18, 'M', 429496729, "Matthieu", "LEMEE", 123354, 123354);
+	ft_printf("\nLONGUEUR : %d\n", len);
+	printf("\n\n");
+	printf("\nLONGUEUR : %d\n",printf("Salut, j'ai %d ans, mon initiale est %c, j'ai %u euros, je suis %s%s%%, je test hexa : %x, et en maj %X", 18, 'M', 429496729, "Matthieu", "LEMEE", 123354, 123354));
 }
 
 

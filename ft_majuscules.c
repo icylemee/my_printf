@@ -10,13 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 
-char *ft_majuscules(char *s)
+char	*ft_majuscules(char *s)
 {
-	int i = 0;
-	char *s1 = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	int		i;
+	char	*s1;
+
+	i = 0;
+	s1 = malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (s1 == NULL)
 		return (NULL);
 	while (s[i])
